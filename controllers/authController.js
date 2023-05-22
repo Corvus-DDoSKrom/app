@@ -21,9 +21,9 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const user = req.body.user
-    const pass = req.body.pass
+    const password = req.body.password
 
-    if (!user || !pass) {
+    if (!user || !password) {
       res.render('login', {
         alert: true,
         alertTitle: 'Advertencia',
@@ -35,7 +35,7 @@ export const login = async (req, res) => {
       })
     } else {
       connector.query('SELECT * FROM users WHERE user = ?', [user], async (_error, results) => {
-        if (results.length === 0 || !(await bcryptjs.compare(pass, results[0].pass))) {
+        if (results.length === 0 || !(await bcryptjs.compare(password, results[0].password))) {
           res.render('login', {
             alert: true,
             alertTitle: 'Error',
@@ -50,7 +50,6 @@ export const login = async (req, res) => {
           const token = Jwt.sign({ id }, process.env.JWT_SECRETO, {
             expiresIn: process.env.JWT_TIEMPO_EXPIRA
           })
-          console.log('TOKEN: ' + token + ' para el USUARIO : ' + user)
 
           const cookiesOptions = {
             expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
@@ -58,13 +57,7 @@ export const login = async (req, res) => {
           }
           res.cookie('jwt', token, cookiesOptions)
           res.render('login', {
-            alert: true,
-            alertTitle: 'Conexión exitosa',
-            alertMessage: '¡LOGIN CORRECTO!',
-            alertIcon: 'success',
-            showConfirmButton: false,
-            timer: 800,
-            ruta: ''
+            alert: true
           })
         }
       })

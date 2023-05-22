@@ -5,9 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link href="../assets/css/main.css" rel="stylesheet">
-  <title><%= title %></title>
+  <title>Login</title>
 </head>
 <body class="bg-slate-900 w-screen font-sans">
     <main class="p-6 flex items-center justify-center h-screen">
@@ -55,17 +54,31 @@
       </div>
     </main>
   <script src="../assets/js/togglePassword.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <% if(alert) { %>
     <script>
-      Swal.fire({
-        title: '<%= alertTitle %>',
-        text:'<%= alertMessage %>',
-        icon:'<%= alertIcon %>',
-        showConfirmButton: <%= showConfirmButton %>,
-        timer: <%= timer %>
-      }).then(()=>{
-        window.location = '/<%= ruta %>'
-      })
+      let timerInterval
+        Swal.fire({
+          icon: 'success',
+          title: '¡Acceso Correcto!',
+          html: 'Accediento en <b></b> milisegundos.',
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          if (result.dismiss === Swal.DismissReason.timer) {
+            location.href ='/';
+          }
+        })
     </script>
   <% } %>
 </body>

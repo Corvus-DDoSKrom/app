@@ -2,19 +2,24 @@ import express from 'express'
 import {
   register,
   login,
-  logout
+  logout,
+  isAuthenticated
 } from '../controllers/authController.js'
 
 const router = express.Router()
 
 const titlePage = 'App'
 
-router.get('/', function (req, res) {
-  res.render('index', { title: titlePage })
+router.get('/', isAuthenticated, function (req, res) {
+  res.render('index')
 })
 
 router.get('/login', function (req, res) {
-  res.render('login', { title: titlePage })
+  if (req.cookies.jwt) {
+    res.redirect('/')
+  } else {
+    res.render('login', { alert: false })
+  }
 })
 
 router.get('/register', function (req, res) {
