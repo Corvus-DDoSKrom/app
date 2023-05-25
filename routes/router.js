@@ -8,7 +8,7 @@ import {
 
 const router = express.Router()
 
-const titlePage = 'App'
+const titlePage = 'Marin Muebles'
 
 router.get('/', isAuthenticated, function (req, res) {
   res.render('index')
