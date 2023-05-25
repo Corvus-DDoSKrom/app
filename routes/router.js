@@ -11,7 +11,7 @@ const router = express.Router()
 const titlePage = 'Marin Muebles'
 
 router.get('/', isAuthenticated, function (req, res) {
-  res.render('index')
+  res.render('index', { user: req.user })
 })
 
 router.get('/login', function (req, res) {

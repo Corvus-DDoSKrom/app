@@ -1,180 +1,174 @@
 <header>
-  <div id="app">
-    <nav id="navbar-main" class="navbar is-fixed-top">
-      <div class="navbar-brand">
-        <a class="navbar-item mobile-aside-button">
-          <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
-        </a>
-        <div class="navbar-item">
-          <div class="control"><input placeholder="Búsqueda general..." class="input"></div>
-        </div>
+  <nav id="navbar-main" class="navbar is-fixed-top">
+    <div class="navbar-brand">
+      <a class="navbar-item mobile-aside-button">
+        <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+      </a>
+      <div class="navbar-item">
+        <div class="control"><input placeholder="Búsqueda general..." class="input"></div>
       </div>
-      <div class="navbar-brand is-right">
-        <a class="navbar-item --jb-navbar-menu-toggle" data-target="navbar-menu">
-          <span class="icon"><i class="mdi mdi-dots-vertical mdi-24px"></i></span>
-        </a>
-      </div>
-      <div class="navbar-menu" id="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item dropdown has-divider has-user-avatar">
-            <a class="navbar-link">
-              <div class="user-avatar">
-                <img src="../assets/img/user.png" class="rounded-full">
-              </div>
-              <div class="is-user-name"><span>hola</span></div>
-              <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-            </a>
-            <div class="navbar-dropdown">
-              <a href="perfil" class="navbar-item">
-                <span class="icon"><i class="mdi mdi-account"></i></span>
-                <span>Mi Perfil</span>
-              </a>
-              <a class="navbar-item">
-                <span class="icon"><i class="mdi mdi-settings"></i></span>
-                <span>Settings</span>
-              </a>
-              <a class="navbar-item">
-                <span class="icon"><i class="mdi mdi-email"></i></span>
-                <span>Messages</span>
-              </a>
-              <hr class="navbar-divider">
-              <a href="logout" class="navbar-item">
-                <span class="icon"><i class="mdi mdi-logout"></i></span>
-                <span>Cerrar Sesión</span>
-              </a>
+    </div>
+    <div class="navbar-brand is-right">
+      <a class="navbar-item --jb-navbar-menu-toggle" data-target="navbar-menu">
+        <span class="icon"><i class="mdi mdi-dots-vertical mdi-24px"></i></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item dropdown has-divider has-user-avatar">
+          <a class="navbar-link">
+            <div class="user-avatar">
+              <img src="../assets/img/user.png" class="rounded-full">
             </div>
+            <div class="is-user-name"><% if (user) { %>
+              <span><%= user.name %></span>
+            <% } %></div>
+            <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+          </a>
+          <div class="navbar-dropdown">
+            <a href="perfil" class="navbar-item">
+              <span class="icon"><i class="mdi mdi-account"></i></span>
+              <span>Mi Perfil</span>
+            </a>
+            <a class="navbar-item">
+              <span class="icon"><i class="mdi mdi-settings"></i></span>
+              <span>Settings</span>
+            </a>
+            <a class="navbar-item">
+              <span class="icon"><i class="mdi mdi-email"></i></span>
+              <span>Messages</span>
+            </a>
+            <hr class="navbar-divider">
+            <a href="logout" class="navbar-item">
+              <span class="icon"><i class="mdi mdi-logout"></i></span>
+              <span>Cerrar Sesión</span>
+            </a>
           </div>
         </div>
       </div>
-    </nav>
-    <aside class="aside is-placed-left is-expanded">
-      <div class="aside-tools">
-        <div>
-          <img class="logo-img" src='../assets/img/logo-mm.png' />
-        </div>
+    </div>
+  </nav>
+  <aside class="aside is-placed-left is-expanded">
+    <div class="aside-tools">
+      <div>
+        <img class="logo-img" src='../assets/img/logo-mm.png' />
       </div>
-      <div class="menu is-menu-main">
-        <p class="menu-label">General</p>
-        <ul class="menu-list">
-          <li class="active">
-            <a href="panel">
-              <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-              <span class="menu-item-label">Panel de Administrador</span>
-            </a>
-          </li>
-        </ul>
-        <p class="menu-label">Examples</p>
-        <ul class="menu-list">
-          <li>
-            <a class="dropdown">
-              <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-              <span class="menu-item-label">Clientes</span>
-              <span class="icon"><i class="mdi mdi-plus"></i></span>
-            </a>
-            <ul>
-              <li>
-                <a href="clientes">
-                  <span>Lista de Clientes</span>
-                </a>
-              </li>
-              <li>
-                <a href="registrar-cliente">
-                  <span>Registrar Cliente</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="--set-active-tables-html">
-            <a href="tables.html">
-              <span class="icon"><i class="mdi mdi-cart"></i></span>
-              <span class="menu-item-label">Stock</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown">
-              <span class="icon"><i class="mdi mdi-truck"></i></span>
-              <span class="menu-item-label">Proveedor</span>
-              <span class="icon"><i class="mdi mdi-plus"></i></span>
-            </a>
-            <ul>
-              <li>
-                <a href="proveedores">
-                  <span>Lista de Proveedores</span>
-                </a>
-              </li>
-              <li>
-                <a href="registrar-proveedor">
-                  <span>Registrar Proveedor</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="--set-active-profile-html">
-            <a href="profile.php">
-              <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-              <span class="menu-item-label">Perfil</span>
-            </a>
-          </li>
-          <li>
-            <a href="login.html">
-              <span class="icon"><i class="mdi mdi-lock"></i></span>
-              <span class="menu-item-label">Login</span>
-            </a>
-          </li>
-          <li>
-            <a class="dropdown">
-              <span class="icon"><i class="mdi mdi-cash-multiple"></i></span>
-              <span class="menu-item-label">Financiero</span>
-              <span class="icon"><i class="mdi mdi-plus"></i></span>
-            </a>
-            <ul>
-              <li>
-                <a href="#void">
-                  <span>Sub-item One</span>
-                </a>
-              </li>
-              <li>
-                <a href="#void">
-                  <span>Sub-item Two</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a class="dropdown">
-              <span class="icon"><i class="mdi mdi-account"></i></span>
-              <span class="menu-item-label">Usuarios</span>
-              <span class="icon"><i class="mdi mdi-plus"></i></span>
-            </a>
-            <ul>
-              <li>
-                <a href="usuarios">
-                  <span>Lista de Usuarios</span>
-                </a>
-              </li>
-              <li>
-                <a href="perfil">
-                  <span>Perfil</span>
-                </a>
-              </li>
-              <li>
-                <a href="registrar-usuario">
-                  <span>Registrar Usuario</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <p class="menu-label">Acerca de</p>
-        <ul class="menu-list">
-          <li>
-            <a href="about" class="has-icon">
-              <span class="icon"><i class="mdi mdi-help-circle"></i></span>
-              <span class="menu-item-label">Acerca de</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </aside>
-  </div>
+    </div>
+    <div class="menu is-menu-main">
+      <p class="menu-label">General</p>
+      <ul class="menu-list">
+        <li class="active">
+          <a href="/">
+            <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+            <span class="menu-item-label">Panel de Administrador</span>
+          </a>
+        </li>
+      </ul>
+      <p class="menu-label">Examples</p>
+      <ul class="menu-list">
+        <li>
+          <a class="dropdown">
+            <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+            <span class="menu-item-label">Clientes</span>
+            <span class="icon"><i class="mdi mdi-plus"></i></span>
+          </a>
+          <ul>
+            <li>
+              <a href="clientes">
+                <span>Lista de Clientes</span>
+              </a>
+            </li>
+            <li>
+              <a href="registrar-cliente">
+                <span>Registrar Cliente</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="--set-active-tables-html">
+          <a href="tables.html">
+            <span class="icon"><i class="mdi mdi-cart"></i></span>
+            <span class="menu-item-label">Stock</span>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown">
+            <span class="icon"><i class="mdi mdi-truck"></i></span>
+            <span class="menu-item-label">Proveedor</span>
+            <span class="icon"><i class="mdi mdi-plus"></i></span>
+          </a>
+          <ul>
+            <li>
+              <a href="proveedores">
+                <span>Lista de Proveedores</span>
+              </a>
+            </li>
+            <li>
+              <a href="registrar-proveedor">
+                <span>Registrar Proveedor</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="--set-active-profile-html">
+          <a href="profile.php">
+            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            <span class="menu-item-label">Perfil</span>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown">
+            <span class="icon"><i class="mdi mdi-cash-multiple"></i></span>
+            <span class="menu-item-label">Financiero</span>
+            <span class="icon"><i class="mdi mdi-plus"></i></span>
+          </a>
+          <ul>
+            <li>
+              <a href="#void">
+                <span>Sub-item One</span>
+              </a>
+            </li>
+            <li>
+              <a href="#void">
+                <span>Sub-item Two</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="dropdown">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span class="menu-item-label">Usuarios</span>
+            <span class="icon"><i class="mdi mdi-plus"></i></span>
+          </a>
+          <ul>
+            <li>
+              <a href="usuarios">
+                <span>Lista de Usuarios</span>
+              </a>
+            </li>
+            <li>
+              <a href="perfil">
+                <span>Perfil</span>
+              </a>
+            </li>
+            <li>
+              <a href="register">
+                <span>Registrar Usuario</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p class="menu-label">Acerca de</p>
+      <ul class="menu-list">
+        <li>
+          <a href="about" class="has-icon">
+            <span class="icon"><i class="mdi mdi-help-circle"></i></span>
+            <span class="menu-item-label">Acerca de</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
 </header>
