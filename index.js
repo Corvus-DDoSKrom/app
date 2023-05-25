@@ -15,7 +15,7 @@ app.use(cookieParser())
 app.set('views', './public/views')
 app.set('view engine', 'ejs')
 
-app.use(express.static('public'))
+app.use(express.static('./public'))
 app.use(express.static('./public/views'))
 app.use(express.static('./public/components'))
 app.use(express.static('./public/assets/css'))
