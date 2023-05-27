@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "build": "postcss ./src/tailwind.css -o ./public/assets/css/main.css --watch"
+    "build": "postcss ./src/tailwind.css -o ./public/css/main.css",
+    "watch": "postcss ./src/tailwind.css -o ./public/assets/css/main.css --watch"
   },
   "repository": {
     "type": "git",
