@@ -1,59 +1,92 @@
 'use strict'
 
-/* Aside & Navbar: dropdowns */
-Array.from(document.getElementsByClassName('dropdown')).forEach(function (elA) {
-  elA.addEventListener('click', function (e) {
-    if (e.currentTarget.classList.contains('navbar-item')) {
-      e.currentTarget.classList.toggle('active')
-    } else {
-      const dropdownIcon = e.currentTarget.getElementsByClassName('mdi')[1]
-      e.currentTarget.parentNode.classList.toggle('active')
-      dropdownIcon.classList.toggle('mdi-plus')
-      dropdownIcon.classList.toggle('mdi-minus')
-    }
-  })
+function toggleClass (element, className) {
+  element.classList.toggle(className)
+}
+
+function addClass (element, className) {
+  element.classList.add(className)
+}
+
+function removeClass (element, className) {
+  element.classList.remove(className)
+}
+
+function handleClickNavbarItem (event) {
+  const target = event.currentTarget
+  toggleClass(target, 'active')
+}
+
+function handleClickDropdown (event) {
+  const target = event.currentTarget
+  const dropdownIcon = target.getElementsByClassName('mdi')[1]
+  const parent = target.parentNode
+  toggleClass(parent, 'active')
+  toggleClass(dropdownIcon, 'mdi-plus')
+  toggleClass(dropdownIcon, 'mdi-minus')
+}
+
+function handleClickMobileAsideButton (event) {
+  const target = event.currentTarget
+  const dropdownIcon = target.getElementsByClassName('icon')[0].getElementsByClassName('mdi')[0]
+  toggleClass(document.documentElement, 'aside-mobile-expanded')
+  toggleClass(dropdownIcon, 'mdi-forwardburger')
+  toggleClass(dropdownIcon, 'mdi-backburger')
+}
+
+function handleClickNavbarMenuToggle (event) {
+  const target = event.currentTarget
+  const dropdownIcon = target.getElementsByClassName('icon')[0].getElementsByClassName('mdi')[0]
+  const dataTarget = target.getAttribute('data-target')
+  toggleClass(document.getElementById(dataTarget), 'active')
+  toggleClass(dropdownIcon, 'mdi-dots-vertical')
+  toggleClass(dropdownIcon, 'mdi-close')
+}
+
+function handleClickModal (event) {
+  const target = event.currentTarget
+  const modalTarget = target.getAttribute('data-target')
+  addClass(document.getElementById(modalTarget), 'active')
+  addClass(document.documentElement, 'clipped')
+}
+
+function handleClickModalClose (event) {
+  const target = event.currentTarget
+  const modal = target.closest('.modal')
+  removeClass(modal, 'active')
+  removeClass(document.documentElement, 'clipped')
+}
+
+function handleClickNotificationDismiss (event) {
+  const target = event.currentTarget
+  const notification = target.closest('.notification')
+  addClass(notification, 'hidden')
+}
+
+Array.from(document.getElementsByClassName('dropdown')).forEach(function (el) {
+  if (el.classList.contains('navbar-item')) {
+    el.addEventListener('click', handleClickNavbarItem)
+  } else {
+    el.addEventListener('click', handleClickDropdown)
+  }
 })
-/* Aside Mobile toggle */
 
 Array.from(document.getElementsByClassName('mobile-aside-button')).forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    const dropdownIcon = e.currentTarget.getElementsByClassName('icon')[0].getElementsByClassName('mdi')[0]
-    document.documentElement.classList.toggle('aside-mobile-expanded')
-    dropdownIcon.classList.toggle('mdi-forwardburger')
-    dropdownIcon.classList.toggle('mdi-backburger')
-  })
+  el.addEventListener('click', handleClickMobileAsideButton)
 })
-/* NavBar menu mobile toggle */
 
 Array.from(document.getElementsByClassName('--jb-navbar-menu-toggle')).forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    const dropdownIcon = e.currentTarget.getElementsByClassName('icon')[0].getElementsByClassName('mdi')[0]
-    document.getElementById(e.currentTarget.getAttribute('data-target')).classList.toggle('active')
-    dropdownIcon.classList.toggle('mdi-dots-vertical')
-    dropdownIcon.classList.toggle('mdi-close')
-  })
+  el.addEventListener('click', handleClickNavbarMenuToggle)
 })
-/* Modal: open */
 
 Array.from(document.getElementsByClassName('--jb-modal')).forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    const modalTarget = e.currentTarget.getAttribute('data-target')
-    document.getElementById(modalTarget).classList.add('active')
-    document.documentElement.classList.add('clipped')
-  })
+  el.addEventListener('click', handleClickModal)
 })
-/* Modal: close */
 
 Array.from(document.getElementsByClassName('--jb-modal-close')).forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    e.currentTarget.closest('.modal').classList.remove('active')
-    document.documentElement.classList.remove('is-clipped')
-  })
+  el.addEventListener('click', handleClickModalClose)
 })
-/* Notification dismiss */
 
 Array.from(document.getElementsByClassName('--jb-notification-dismiss')).forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    e.currentTarget.closest('.notification').classList.add('hidden')
-  })
+  el.addEventListener('click', handleClickNotificationDismiss)
 })
