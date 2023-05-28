@@ -11,7 +11,8 @@ const router = express.Router()
 const titlePage = 'Marin Muebles'
 
 router.get('/', isAuthenticated, function (req, res) {
-  res.render('index', { user: req.user })
+  const USER = req.user
+  res.render('index', { user: USER })
 })
 
 router.get('/login', function (req, res) {
@@ -22,8 +23,9 @@ router.get('/login', function (req, res) {
   }
 })
 
-router.get('/register', function (req, res) {
-  res.render('register', { title: titlePage })
+router.get('/register', isAuthenticated, function (req, res) {
+  const USER = req.user
+  res.render('register', { title: titlePage, user: USER })
 })
 
 router.post('/register', register)
