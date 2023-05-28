@@ -1,0 +1,109 @@
+<?php
+  session_start();
+  require "../../config/connection.php";
+  require "../../includes/auth_validate.php";
+  /* $privilege_admin = $_SESSION['privilege'];
+   if($privilege_admin !='ADMINISTRADOR'){
+    header("location:error-403"); */
+  $username = $_SESSION['username'];
+  $db_consulting_login="SELECT*FROM login";
+  $result_login=mysqli_query($conn, $db_consulting_login);
+  $view_login=mysqli_fetch_array($result_login);
+  $id = $_GET['id'];
+  $db_consulting="SELECT*FROM customers Where id = '$id'";
+  $result_consulting = mysqli_query($conn, $db_consulting);
+  $view = mysqli_fetch_array($result_consulting);  
+?>
+<?php 
+  include("../../components/header.php");
+?>
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Admin</li>
+      <li>Clientes</li>
+    </ul>
+  </div>
+</section>
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+      Actualizar datos de Clientes
+    </h1>
+    <a href="clientes" class="button light">Ver lista de Clientes</a>
+  </div>
+</section>
+<section class="section main-section">
+  <div class="card mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+        Formulario de Registro
+      </p>
+    </header>
+    <div class="card-content">
+      <form method="POST" action="clientes">
+        <div class="field">
+          <label class="label">Datos Personales</label>
+          <div class="field-body">
+            <div class="field">
+              <div class="control icons-left">
+                <input type="hidden" name="id_update" id="id_update" value="<?php echo $_GET['id']; ?>" readonly>
+                <input class="input" type="text" autocomplete="off" name="customer" id="customer" value="<?php echo $view['customer']; ?>">
+                <span class="icon left"><i class="mdi mdi-account"></i></span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control icons-left">
+                <input class="input" type="text" autocomplete="off" name="document" id="document" value="<?php echo $view['document']; ?>">
+                <span class="icon left"><i class="mdi mdi-mail"></i></span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control icons-left icons-right">
+                <input class="input" type="email" autocomplete="off" name="mail" id="mail" value="<?php echo $view['mail']; ?>">
+                <span class="icon left"><i class="mdi mdi-at"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-body">
+            <div class="field">
+                <div class="control icons-left">
+                  <input class="input" type="tel" autocomplete="off" name="phone" id="phone" value="<?php echo $view['phone']; ?>">
+                  <span class="icon left"><i class="mdi mdi-cellphone"></i></span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-body">
+            <div class="field">
+                <div class="control icons-left">
+                  <input class="input" type="text" autocomplete="off" name="direction" id="direction" value="<?php echo $view['direction']; ?>">
+                  <span class="icon left"><i class="mdi mdi-map-marker-radius"></i></span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="field grouped">
+          <div class="control">
+            <button type="submit" class="button green" name="buttonupdate">
+              Guardar
+            </button>
+          </div>
+          <div class="control">
+            <button type="reset" class="button red">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<?php 
+  include("../../components/footer.php");
+?>

@@ -2,7 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
-import router from './routes/router.js'
+import indexRoutes from './routes/index.routes.js'
+import clientsRoutes from './routes/clients.routes.js'
 import { PORT } from './config/config.js'
 
 const app = express()
@@ -16,7 +17,7 @@ app.set('views', './public/views')
 app.set('view engine', 'ejs')
 
 app.use(express.static('./public'))
-app.use(express.static('./public/views'))
+app.use(express.static('./public/views/clients'))
 app.use(express.static('./public/components'))
 app.use(express.static('./public/assets/css'))
 app.use(express.static('./public/assets/img'))
@@ -30,7 +31,8 @@ app.use(function (req, res, next) {
   next()
 })
 
-app.use('/', router)
+app.use(indexRoutes)
+app.use(clientsRoutes)
 
 app.listen(PORT)
 console.log('Server is listening on port', PORT)

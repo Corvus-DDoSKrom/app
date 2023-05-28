@@ -23,6 +23,11 @@ router.get('/login', function (req, res) {
   }
 })
 
+router.get('/profile', isAuthenticated, function (req, res) {
+  const USER = req.user
+  res.render('profile', { title: titlePage, user: USER })
+})
+
 router.get('/register', isAuthenticated, function (req, res) {
   const USER = req.user
   res.render('register', { title: titlePage, user: USER })
