@@ -3,7 +3,7 @@ import Jwt from 'jsonwebtoken'
 import bcryptjs from 'bcryptjs'
 import { promisify } from 'util'
 
-export const register = async (req, res) => {
+export const register = async function (req, res) {
   try {
     const name = req.body.name
     const user = req.body.user
@@ -18,31 +18,27 @@ export const register = async (req, res) => {
   }
 }
 
-export const login = async (req, res) => {
+export const login = async function (req, res) {
   try {
     const user = req.body.user
     const password = req.body.password
 
     if (!user || !password) {
       res.render('login', {
-        alert: true,
+        alert: 'incorrectLogin',
         alertTitle: 'Advertencia',
-        alertMessage: 'Ingrese un usuario y password',
+        alertMessage: 'Ingrese un usuario y contraseña',
         alertIcon: 'info',
-        showConfirmButton: true,
-        timer: false,
         ruta: 'login'
       })
     } else {
-      connector.query('SELECT * FROM users WHERE user = ?', [user], async (_error, results) => {
+      connector.query('SELECT * FROM users WHERE user = ?', user, async function (_error, results) {
         if (results.length === 0 || !(await bcryptjs.compare(password, results[0].password))) {
           res.render('login', {
-            alert: true,
+            alert: 'incorrectLogin',
             alertTitle: 'Error',
-            alertMessage: 'Usuario y/o Password incorrectas',
+            alertMessage: 'Usuario y/o Contraseña incorrectas',
             alertIcon: 'error',
-            showConfirmButton: true,
-            timer: false,
             ruta: 'login'
           })
         } else {
@@ -57,7 +53,7 @@ export const login = async (req, res) => {
           }
           res.cookie('jwt', token, cookiesOptions)
           res.render('login', {
-            alert: true
+            alert: 'successfulLogin'
           })
         }
       })
@@ -67,11 +63,11 @@ export const login = async (req, res) => {
   }
 }
 
-export const isAuthenticated = async (req, res, next) => {
+export const isAuthenticated = async function (req, res, next) {
   if (req.cookies.jwt) {
     try {
       const decodificada = await promisify(Jwt.verify)(req.cookies.jwt, process.env.JWT_SECRETO)
-      connector.query('SELECT * FROM users WHERE id = ?', [decodificada.id], (_error, results) => {
+      connector.query('SELECT * FROM users WHERE id = ?', [decodificada.id], function (_error, results) {
         if (!results) { return next() }
         req.user = results[0]
         return next()
@@ -85,7 +81,7 @@ export const isAuthenticated = async (req, res, next) => {
   }
 }
 
-export const logout = (req, res) => {
+export const logout = function (req, res) {
   res.clearCookie('jwt')
   return res.redirect('/')
 }

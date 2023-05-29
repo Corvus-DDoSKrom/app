@@ -1,50 +1,8 @@
-<?php
-  session_start();
-  require "../../config/connection.php";
-  require "../../includes/auth_validate.php";
-  /* $privilege_admin = $_SESSION['privilege'];
-  if($privilege_admin !='ADMINISTRADOR'){
-    header("location:error-403"); */
-  $username = $_SESSION['username'];
-  $db_consulting_login="SELECT*FROM login";
-  $result_login=mysqli_query($conn, $db_consulting_login);
-  $view_login=mysqli_fetch_array($result_login);
-  $db_consulting="SELECT*FROM customers";
-  $result=mysqli_query($conn, $db_consulting);
-  $view=mysqli_fetch_array($result);  
-  if(isset($_GET['id'])){
-    $id_delete = $_GET['id'];
-    $sql = "DELETE FROM customers WHERE id = '$id_delete'"; 
-    $result_delete = mysqli_query($conn, $sql);
-    if($result_delete){
-      $message="Cliente eliminado con éxito";
-      header("location:clientes?message=".$message);
-    }else{
-        echo "Error: " .$sql."<br>".mysql_error($conn);
-    }
-  }
-  if(isset($_POST['id_update'])){
-    $id_update = $_POST["id_update"];
-    $customer = $_POST["customer"];
-    $document = $_POST["document"];
-    $mail = $_POST["mail"];
-    $phone = $_POST["phone"];
-    $direction = $_POST["direction"];
-    $db_updating = "UPDATE customers SET customer='$customer', document='$document', mail='$mail', phone='$phone', direction='$direction' WHERE id=$id_update";
-    $result_update = mysqli_query($conn, $db_updating);
-    if($result_update){
-      $message_updating="Cliente actualizado con éxito";
-      header("location:clientes?message_updating=".$message_updating);
-    }
-    else{
-        echo "Error: " .$sql."<br>".mysql_error($conn);
-    }
-  }  
-  mysqli_close($conn);
-?>
-<?php
-  include("../../components/header.php");
-?>
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../components/head.ejs') %>
+<body>
+<%- include('../components/header.ejs') %>
 <section class="is-title-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
@@ -63,37 +21,12 @@
       <span class="icon"><i class="mdi mdi-reload"></i></span>
     </a>
   </header>
-  <?php
-    if(isset($_GET['message'])){ 
-  ?>
-  <script>
-    Swal.fire({
-    title: '¡Eliminado!',
-    text: "<?php echo $_GET['message']; ?>",
-    icon: 'success'
-    })
-  </script>
-  <?php
-  }
-  ?>
-  <?php
-    if(isset($_GET['message_updating'])){ 
-  ?>
-  <script>
-    Swal.fire({
-    title: '¡Actualizado!',
-    text: "<?php echo $_GET['message_updating']; ?>",
-    icon: 'success'
-    })
-  </script>
-  <?php
-  }
-  ?>
   <div class="card-content">
     <table id="table_id">
       <thead>
         <tr>
-          <th>Nombre o Razón Social</th>
+          <th>Nombre Completo</th>
+          <th>Razón Social</th>
           <th>C.I o RUC</th>
           <th>Correo Electrónico</th>
           <th>Celular</th>
@@ -102,36 +35,33 @@
         </tr>
       </thead>
       <tbody>
-        <?php
-          foreach($result as $row){
-        ?>
-        <tr>
-          <td data-label="Nombre o R.S"><?php echo $row['customer']; ?></td>
-          <td data-label="C.I RUC"><?php echo $row['document']; ?></td>
-          <td data-label="Correo Electrónico"><?php echo $row['mail']; ?></td>
-          <td data-label="Celular"><?php echo $row['phone']; ?></td>
-          <td data-label="Dirección"><?php echo $row['direction']; ?></td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <a class="btn-small" href="javascript:update_customers(<?php echo $row['id']; ?>)">
-                <span class="icon"><i class="mdi mdi-file-edit"></i></span>
-              </a>
-              <a class="btn-small" href="javascript:delete_customers(<?php echo $row['id']; ?>)">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </a>
-            </div>
-          </td>
-        </tr>
-        <?php 
-          }
-          mysqli_free_result($result);
-        ?>
+        <% results.forEach((clients)=>{ %>
+          <tr>
+              <td style="visibility:collapse; display:none;" data-label="ID" type="hidden"><%= clients.idClients %></td>
+              <td data-label="Nombre Completo"><%= clients.nameClients %></td>  
+              <td data-label="Razón Social"><%= clients.companyClients %></td>
+              <td data-label="C.I o RUC"><%= clients.documentClients %></td>
+              <td data-label="Correo Electrónico"><%= clients.mailClients %></td>
+              <td data-label="Celular"><%= clients.phoneClients %></td>
+              <td data-label="Dirección"><%= clients.directionClients %></td> 
+              <td class="actions-cell">
+                <div class="buttons right nowrap">
+                  <a class="btn-small" href="/update/<%= clients.idClients %>">
+                    <span class="icon"><i class="mdi mdi-file-edit"></i></span>
+                  </a>
+                  <a class="btn-small" href="javascript:void(0);" onclick="deleteClients('<%= clients.idClients %>')">
+                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                  </a>
+                </div>                  
+              </td>
+          </tr>                                   
+        <% }) %>
       </tbody>
     </table>
   </div>
 </div>
 <script>
-  function delete_customers(id){
+  function deleteClients(idClients) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "¡Esta acción no se puede revertir!",
@@ -143,31 +73,35 @@
       denyButtonText: `Cancelar`,
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location="clientes?id="+id;
+        fetch(`/delete/${idClients}`, {
+          method: 'POST'
+        })
+        .then(response => {
+          if (response.ok) {
+            Swal.fire({
+            title: '¡Eliminado!',
+            text: "Cliente eliminado con éxito",
+            icon: 'success',
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            timer: 1200
+            }).then(()=>{
+              window.location.reload()
+            })
+          } else {
+            throw new Error('Error al eliminar el cliente');
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          Swal.fire('Error', 'Ocurrió un error al eliminar el cliente', 'error');
+        });
       } else if (result.isDenied) {
-        Swal.fire('Ningún cambio realizado', '', 'info')
+        Swal.fire('Ningún cambio realizado', '', 'info');
       }
-    })
-  }  
-</script>
-<script>
-  function update_customers(id){
-    Swal.fire({
-      title: '¿Quieres editar los datos?',
-      icon: 'question',
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonColor: '#3085d6',
-      confirmButtonText: '¡Sí!',
-      denyButtonText: `Cancelar`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location="actualizar-cliente?id="+id;
-      } else if (result.isDenied) {
-        Swal.fire('Ningún cambio realizado', '', 'info')
-      }
-    })
-  }  
+    });
+  }
 </script>
 <script>
   var myTable = document.querySelector("#table_id");
@@ -175,8 +109,11 @@
       perPage:10,
       perPageSelect:[10,15,20,25,50]
   });
- 
-  </script>
-<?php
-  include("../../components/footer.php");
-?>
+</script>
+<%- include('../components/footer.ejs') %>
+<script type="text/javascript" src="../assets/js/main.min.js?v=1628755089081"></script>
+<script type="text/javascript" src="../assets/js/Vanilla-DataTables.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script type="text/javascript" src="../assets/js/chart.sample.min.js"></script>
+</body>
+</html>

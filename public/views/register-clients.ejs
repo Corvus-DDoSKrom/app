@@ -16,7 +16,7 @@
     <h1 class="title">
       Registrar Clientes
     </h1>
-    <a href="clientes" class="button light">Ver lista de Clientes</a>
+    <a href="clients" class="button light">Ver lista de Clientes</a>
   </div>
 </section>
 <section class="section main-section">
@@ -28,25 +28,31 @@
       </p>
     </header>
     <div class="card-content">
-      <form method="POST" action="registrar-cliente">
+      <form method="post" action="/register-clients">
         <div class="field">
           <label class="label">Datos Personales</label>
           <div class="field-body">
             <div class="field">
               <div class="control icons-left">
-                <input class="input" type="text" autocomplete="off" name="customer" id="customer" placeholder="Nombre Completo o Razón Social">
+                <input class="input" type="text" autocomplete="off" name="nameClients" id="nameClients" placeholder="Nombre Completo">
                 <span class="icon left"><i class="mdi mdi-account"></i></span>
               </div>
             </div>
             <div class="field">
               <div class="control icons-left">
-                <input class="input" type="text" autocomplete="off" name="document" id="document" placeholder="C.I o RUC">
+                <input class="input" type="text" autocomplete="off" name="companyClients" id="companyClients" placeholder="Razón Social">
+                <span class="icon left"><i class="mdi mdi-account"></i></span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control icons-left">
+                <input class="input" type="text" autocomplete="off" name="documentClients" id="documentClients" placeholder="C.I o RUC">
                 <span class="icon left"><i class="mdi mdi-mail"></i></span>
               </div>
             </div>
             <div class="field">
               <div class="control icons-left icons-right">
-                <input class="input" type="email" autocomplete="off" name="mail" id="mail" placeholder="Correo Electrónico">
+                <input class="input" type="email" autocomplete="off" name="mailClients" id="mailClients" placeholder="Correo Electrónico">
                 <span class="icon left"><i class="mdi mdi-at"></i></span>
               </div>
             </div>
@@ -56,7 +62,7 @@
           <div class="field-body">
             <div class="field">
                 <div class="control icons-left">
-                  <input class="input" type="tel" autocomplete="off" name="phone" id="phone" placeholder="Celular">
+                  <input class="input" type="tel" autocomplete="off" name="phoneClients" id="phoneClients" placeholder="Celular">
                   <span class="icon left"><i class="mdi mdi-cellphone"></i></span>
                 </div>
             </div>
@@ -66,7 +72,7 @@
           <div class="field-body">
             <div class="field">
                 <div class="control icons-left">
-                  <input class="input" type="text" autocomplete="off" name="direction" id="direction" placeholder="Dirección">
+                  <input class="input" type="text" autocomplete="off" name="directionClients" id="directionClients" placeholder="Dirección">
                   <span class="icon left"><i class="mdi mdi-map-marker-radius"></i></span>
                 </div>
             </div>
@@ -75,9 +81,7 @@
         <hr>
         <div class="field grouped">
           <div class="control">
-            <button type="submit" class="button green" name="buttoncreate">
-              Registrar
-            </button>
+            <input type="submit" class="button green" value="Registrar"></input>
           </div>
           <div class="control">
             <button type="reset" class="button red">
@@ -94,5 +98,22 @@
 <script type="text/javascript" src="../assets/js/Vanilla-DataTables.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script type="text/javascript" src="../assets/js/chart.sample.min.js"></script>
+<% if(alert === 'successfullycreatedClient') { %>
+  <script>Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Cliente registrado con éxito',
+    showConfirmButton: false,
+    timer: 1500
+  })</script>
+<% } else if (alert === 'incorrectcreatedClient') { %>
+  <script>Swal.fire({
+    position: 'top-end',
+    icon: 'error',
+    title: 'Error al registrar el cliente',
+    text: 'El número de documento ya se encuentra registrado',
+    showConfirmButton: false,
+  })</script>
+<% } %>
 </body>
 </html>
