@@ -9,30 +9,30 @@ import {
 
 const router = express.Router()
 
+let USER = null
+
 router.get('/clients', isAuthenticated, function (req, res) {
   connector.query('SELECT * FROM clients', function (error, results) {
     if (error) {
       throw error
     } else {
-      const USER = req.user
-      res.render('clients', { user: USER, results })
+      USER = req.user
+      res.render('clients', { alert: req.query.alert, user: USER, results, req })
     }
   })
 })
 
 router.get('/register-clients', isAuthenticated, function (req, res) {
-  const USER = req.user
   res.render('register-clients', { alert: '', user: USER })
 })
 
 router.get('/update/:idClients', function (req, res) {
   const idClients = req.params.idClients
-  connector.query('SELECT * FROM clients WHERE idClients = ?', [idClients], (error, results) => {
+  connector.query('SELECT * FROM clients WHERE idClients = ?', [idClients], function (error, results) {
     if (error) {
       throw error
     } else {
-      const USER = req.user
-      res.render('update-clients', { alert: '', clients: results[0], user: USER })
+      res.render('update-clients', { clients: results[0], user: USER })
     }
   })
 })

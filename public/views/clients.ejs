@@ -46,7 +46,7 @@
               <td data-label="Dirección"><%= clients.directionClients %></td> 
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a class="btn-small" href="/update/<%= clients.idClients %>">
+                  <a class="btn-small" href="javascript:void(0);" onclick="updateClients('<%= clients.idClients %>')">
                     <span class="icon"><i class="mdi mdi-file-edit"></i></span>
                   </a>
                   <a class="btn-small" href="javascript:void(0);" onclick="deleteClients('<%= clients.idClients %>')">
@@ -103,6 +103,34 @@
     });
   }
 </script>
+<script>
+  function updateClients(idClients) {
+  Swal.fire({
+    title: '¿Quieres editar los datos?',
+    icon: 'question',
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonColor: '#3085d6',
+    confirmButtonText: '¡Sí!',
+    denyButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location = `/update/${idClients}`;
+    } else if (result.isDenied) {
+      Swal.fire('Ningún cambio realizado', '', 'info');
+    }
+  });
+}
+</script>
+<% if(req.query.alert === 'successfulUpdated') { %>
+  <script>
+    Swal.fire({
+    title: '¡Actualizado!',
+    text: "Cliente actualizado con éxito",
+    icon: 'success'
+    })
+  </script>
+<% } %>
 <script>
   var myTable = document.querySelector("#table_id");
   var dataTable = new DataTable(myTable,{

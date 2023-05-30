@@ -1,5 +1,7 @@
 import connector from '../database/db.js'
 
+let USER = null
+
 export const registerClients = async function (req, res) {
   try {
     const nameClients = req.body.nameClients
@@ -71,7 +73,8 @@ export const updateClients = async function (req, res) {
       dateupdateClients
     }, idClients], function (error, results) {
       if (error) { console.log(error) }
-      res.redirect('/clients')
+      USER = req.user
+      res.redirect(`/clients?alert=successfulUpdated&user=${USER}`)
     })
   } catch (error) {
     console.log(error)

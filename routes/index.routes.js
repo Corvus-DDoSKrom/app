@@ -9,12 +9,14 @@ import {
 
 const router = express.Router()
 
+let USER = null
+
 router.get('/', isAuthenticated, function (req, res) {
   connector.query('SELECT * FROM clients', function (error, results) {
     if (error) {
       throw error
     } else {
-      const USER = req.user
+      USER = req.user
       res.render('index', { user: USER, count: results.length })
     }
   })
@@ -29,12 +31,10 @@ router.get('/login', function (req, res) {
 })
 
 router.get('/profile', isAuthenticated, function (req, res) {
-  const USER = req.user
   res.render('profile', { user: USER })
 })
 
 router.get('/register', isAuthenticated, function (req, res) {
-  const USER = req.user
   res.render('register', { user: USER })
 })
 
