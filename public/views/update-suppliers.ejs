@@ -7,16 +7,16 @@
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
       <li>Admin</li>
-      <li>Clientes</li>
+      <li>Proveedores</li>
     </ul>
   </div>
 </section>
 <section class="is-hero-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <h1 class="title">
-      Actualizar datos de Clientes
+      Actualizar datos de Proveedores
     </h1>
-    <a href="/cliens" class="button light">Ver lista de Clientes</a>
+    <a href="/suppliers" class="button light">Ver lista de Proveedores</a>
   </div>
 </section>
 <section class="section main-section">
@@ -27,34 +27,34 @@
         Formulario de Registro
       </p>
     </header>
-    <% if (clients) { %>
+    <% if (suppliers) { %>
       <div class="card-content">
-        <form method="post" action="/updateClients">
+        <form method="post" action="/updateSuppliers">
           <div class="field">
             <label class="label">Datos Personales</label>
             <div class="field-body">
               <div class="field">
-                <input id="idClients" name="idClients" value="<%= clients.idClients %>" hidden>
+                <input id="idSuppliers" name="idSuppliers" value="<%= suppliers.idSuppliers %>" hidden>
                 <div class="control icons-left">
-                  <input class="input" type="text" autocomplete="off" name="nameClients" id="nameClients" placeholder="Nombre Completo" value="<%= clients.nameClients %>">
+                  <input class="input" type="text" autocomplete="off" name="nameSuppliers" id="nameSuppliers" placeholder="Nombre Completo" value="<%= suppliers.nameSuppliers %>">
                   <span class="icon left"><i class="mdi mdi-account"></i></span>
                 </div>
               </div>
               <div class="field">
                 <div class="control icons-left">
-                  <input class="input" type="text" autocomplete="off" name="companyClients" id="companyClients" placeholder="Razón Social" value="<%= clients.companyClients %>">
+                  <input class="input" type="text" autocomplete="off" name="companySuppliers" id="companySuppliers" placeholder="Razón Social" value="<%= suppliers.companySuppliers %>">
                   <span class="icon left"><i class="mdi mdi-account"></i></span>
                 </div>
               </div>
               <div class="field">
                 <div class="control icons-left">
-                  <input class="input" type="text" autocomplete="off" name="documentClients" id="documentClients" placeholder="C.I o RUC" value="<%= clients.documentClients %>">
+                  <input class="input" type="text" autocomplete="off" name="documentSuppliers" id="documentSuppliers" placeholder="C.I o RUC" value="<%= suppliers.documentSuppliers %>">
                   <span class="icon left"><i class="mdi mdi-mail"></i></span>
                 </div>
               </div>
               <div class="field">
                 <div class="control icons-left icons-right">
-                  <input class="input" type="email" autocomplete="off" name="mailClients" id="mailClients" placeholder="Correo Electrónico" value="<%= clients.mailClients %>">
+                  <input class="input" type="email" autocomplete="off" name="mailSuppliers" id="mailSuppliers" placeholder="Correo Electrónico" value="<%= suppliers.mailSuppliers %>">
                   <span class="icon left"><i class="mdi mdi-at"></i></span>
                 </div>
               </div>
@@ -64,7 +64,7 @@
             <div class="field-body">
               <div class="field">
                   <div class="control icons-left">
-                    <input class="input" type="tel" autocomplete="off" name="phoneClients" id="phoneClients" placeholder="Celular" value="<%= clients.phoneClients %>">
+                    <input class="input" type="tel" autocomplete="off" name="phoneSuppliers" id="phoneSuppliers" placeholder="Celular" value="<%= suppliers.phoneSuppliers %>">
                     <span class="icon left"><i class="mdi mdi-cellphone"></i></span>
                   </div>
               </div>
@@ -74,7 +74,7 @@
             <div class="field-body">
               <div class="field">
                   <div class="control icons-left">
-                    <input class="input" type="text" autocomplete="off" name="directionClients" id="directionClients" placeholder="Dirección" value="<%= clients.directionClients %>">
+                    <input class="input" type="text" autocomplete="off" name="directionSuppliers" id="directionSuppliers" placeholder="Dirección" value="<%= suppliers.directionSuppliers %>">
                     <span class="icon left"><i class="mdi mdi-map-marker-radius"></i></span>
                   </div>
               </div>

@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 import indexRoutes from './routes/index.routes.js'
 import clientsRoutes from './routes/clients.routes.js'
+import suppliersRoutes from './routes/suppliers.routes.js'
 import { PORT } from './config/config.js'
 
 const app = express()
@@ -33,6 +34,7 @@ app.use(function (req, res, next) {
 
 app.use(indexRoutes)
 app.use(clientsRoutes)
+app.use(suppliersRoutes)
 
 app.listen(PORT)
 console.log('Server is listening on port', PORT)

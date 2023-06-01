@@ -7,7 +7,7 @@
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
       <li>Admin</li>
-      <li>Clientes</li>
+      <li>Proveedores</li>
     </ul>
   </div>
 </section>
@@ -15,9 +15,9 @@
   <header class="card-header">
     <p class="card-header-title">
       <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-      Clientes
+      Proveedores
     </p>
-    <a href="/clients" class="card-header-icon">
+    <a href="/suppliers" class="card-header-icon">
       <span class="icon"><i class="mdi mdi-reload"></i></span>
     </a>
   </header>
@@ -35,21 +35,21 @@
         </tr>
       </thead>
       <tbody>
-        <% results.forEach((clients)=>{ %>
+        <% results.forEach((suppliers)=>{ %>
           <tr>
-              <td style="visibility:collapse; display:none;" data-label="ID" type="hidden"><%= clients.idClients %></td>
-              <td data-label="Nombre Completo"><%= clients.nameClients %></td>  
-              <td data-label="Razón Social"><%= clients.companyClients %></td>
-              <td data-label="C.I o RUC"><%= clients.documentClients %></td>
-              <td data-label="Correo Electrónico"><%= clients.mailClients %></td>
-              <td data-label="Celular"><%= clients.phoneClients %></td>
-              <td data-label="Dirección"><%= clients.directionClients %></td> 
+              <td style="visibility:collapse; display:none;" data-label="ID" type="hidden"><%= suppliers.idSuppliers %></td>
+              <td data-label="Nombre Completo"><%= suppliers.nameSuppliers %></td>  
+              <td data-label="Razón Social"><%= suppliers.companySuppliers %></td>
+              <td data-label="C.I o RUC"><%= suppliers.documentSuppliers %></td>
+              <td data-label="Correo Electrónico"><%= suppliers.mailSuppliers %></td>
+              <td data-label="Celular"><%= suppliers.phoneSuppliers %></td>
+              <td data-label="Dirección"><%= suppliers.directionSuppliers %></td> 
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a class="btn-small" href="javascript:void(0);" onclick="updateClients('<%= clients.idClients %>')">
+                  <a class="btn-small" href="javascript:void(0);" onclick="updateSuppliers('<%= suppliers.idSuppliers %>')">
                     <span class="icon"><i class="mdi mdi-file-edit"></i></span>
                   </a>
-                  <a class="btn-small" href="javascript:void(0);" onclick="deleteClients('<%= clients.idClients %>')">
+                  <a class="btn-small" href="javascript:void(0);" onclick="deleteSuppliers('<%= suppliers.idSuppliers %>')">
                     <span class="icon"><i class="mdi mdi-trash-can"></i></span>
                   </a>
                 </div>                  
@@ -61,7 +61,7 @@
   </div>
 </div>
 <script>
-  function deleteClients(idClients) {
+  function deleteSuppliers(idSuppliers) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: '¡Esta acción no se puede revertir!',
@@ -73,14 +73,14 @@
       denyButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`/delete/${idClients}`, {
+        fetch(`/deleteSuppliers/${idSuppliers}`, {
           method: 'POST'
         })
         .then(response => {
           if (response.ok) {
             Swal.fire({
             title: '¡Eliminado!',
-            text: 'Cliente eliminado con éxito',
+            text: 'Proveedor eliminado con éxito',
             icon: 'success',
             showConfirmButton: false,
             allowOutsideClick: false,
@@ -90,12 +90,12 @@
               window.location.reload()
             })
           } else {
-            throw new Error('Error al eliminar el cliente');
+            throw new Error('Error al eliminar el proveedor');
           }
         })
         .catch(error => {
           console.log(error);
-          Swal.fire('Error', 'Ocurrió un error al eliminar el cliente', 'error');
+          Swal.fire('Error', 'Ocurrió un error al eliminar el proveedor', 'error');
         });
       } else if (result.isDenied) {
         Swal.fire('Ningún cambio realizado', '', 'info');
@@ -104,7 +104,7 @@
   }
 </script>
 <script>
-  function updateClients(idClients) {
+  function updateSuppliers(idSuppliers) {
   Swal.fire({
     title: '¿Quieres editar los datos?',
     icon: 'question',
@@ -115,7 +115,7 @@
     denyButtonText: 'Cancelar',
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location = `/update/${idClients}`;
+      window.location = `/updatesuppliers/${idSuppliers}`;
     } else if (result.isDenied) {
       Swal.fire('Ningún cambio realizado', '', 'info');
     }
@@ -126,7 +126,7 @@
   <script>
     Swal.fire({
     title: '¡Actualizado!',
-    text: 'Cliente actualizado con éxito',
+    text: 'Proveedor actualizado con éxito',
     icon: 'success'
     })
   </script>

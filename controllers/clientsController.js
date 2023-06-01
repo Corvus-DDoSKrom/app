@@ -14,7 +14,7 @@ export const registerClients = async function (req, res) {
     connector.query('SELECT * FROM clients WHERE companyClients = ?', companyClients, async function (_error, results) {
       if (results.length === 1) {
         console.log(_error)
-        const USER = req.user
+        USER = req.user
         res.render('register-clients', { alert: 'incorrectcreatedClient', user: USER })
       } else {
         connector.query('INSERT INTO clients SET ?', {
@@ -27,7 +27,6 @@ export const registerClients = async function (req, res) {
           datecreateClients
         }, function (error, results) {
           if (error) { console.log(error) }
-          const USER = req.user
           res.render('register-clients', { alert: 'successfullycreatedClient', user: USER })
         })
       }
@@ -73,7 +72,6 @@ export const updateClients = async function (req, res) {
       dateupdateClients
     }, idClients], function (error, results) {
       if (error) { console.log(error) }
-      USER = req.user
       res.redirect(`/clients?alert=successfulUpdated&user=${USER}`)
     })
   } catch (error) {
