@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 package-lock.json
+
+# Docker Files
+docker-compose-dev.yml
+docker-compose.yml
+Dockerfile
+Dockerfile.dev
+.dockerignore
