@@ -11,6 +11,7 @@ export const registerClients = async function (req, res) {
     const phoneClients = req.body.phoneClients
     const directionClients = req.body.directionClients
     const datecreateClients = new Date()
+    const dateupdateClients = new Date()
     connector.query('SELECT * FROM clients WHERE companyClients = ?', companyClients, async function (_error, results) {
       if (results.length === 1) {
         console.log(_error)
@@ -24,7 +25,8 @@ export const registerClients = async function (req, res) {
           mailClients,
           phoneClients,
           directionClients,
-          datecreateClients
+          datecreateClients,
+          dateupdateClients
         }, function (error, results) {
           if (error) { console.log(error) }
           res.render('register-clients', { alert: 'successfullycreatedClient', user: USER })

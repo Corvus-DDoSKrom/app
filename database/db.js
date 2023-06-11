@@ -1,9 +1,10 @@
-import mysql from 'mysql'
+import mysql2 from 'mysql2'
 
-const connector = mysql.createConnection({
-  host: 'localhost',
+const connector = mysql2.createConnection({
+  host: 'database',
+  port: '3306',
   user: 'root',
-  password: '',
+  password: 'CorvusDDoSKrom',
   database: 'app'
 })
 
