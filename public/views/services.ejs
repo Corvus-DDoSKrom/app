@@ -19,6 +19,80 @@
     <a href="/clients" class="button light">Ver lista de Clientes</a>
   </div>
 </section>
+<section class="section main-section">
+  <div class="card mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+        Formulario de Registro
+      </p>
+    </header>
+    <div class="card-content">
+      <form method="post" action="/register-clients">
+        <div class="field">
+          <label class="label">Datos Personales</label>
+          <div class="field-body">
+            <div class="field">
+              <div class="control icons-left">
+                <input class="input" type="text" autocomplete="off" name="nameClients" id="nameClients" placeholder="Nombre Completo">
+                <span class="icon left"><i class="mdi mdi-account"></i></span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control icons-left">
+                <input class="input" type="text" autocomplete="off" name="companyClients" id="companyClients" placeholder="Razón Social">
+                <span class="icon left"><i class="mdi mdi-domain"></i></span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control icons-left">
+                <input class="input" type="text" autocomplete="off" name="documentClients" id="documentClients" placeholder="C.I o RUC">
+                <span class="icon left"><i class="mdi mdi-mail"></i></span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control icons-left icons-right">
+                <input class="input" type="email" autocomplete="off" name="mailClients" id="mailClients" placeholder="Correo Electrónico">
+                <span class="icon left"><i class="mdi mdi-at"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-body">
+            <div class="field">
+                <div class="control icons-left">
+                  <input class="input" type="tel" autocomplete="off" name="phoneClients" id="phoneClients" placeholder="Celular">
+                  <span class="icon left"><i class="mdi mdi-cellphone"></i></span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-body">
+            <div class="field">
+                <div class="control icons-left">
+                  <input class="input" type="text" autocomplete="off" name="directionClients" id="directionClients" placeholder="Dirección">
+                  <span class="icon left"><i class="mdi mdi-map-marker-radius"></i></span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="field grouped">
+          <div class="control">
+            <input type="submit" class="button green" value="Registrar"></input>
+          </div>
+          <div class="control">
+            <button type="reset" class="button red">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 <%- include('../components/footer.ejs') %>
 <script type="text/javascript" src="../assets/js/main.min.js?v=1628755089081"></script>
 <script type="text/javascript" src="../assets/js/Vanilla-DataTables.js"></script>
