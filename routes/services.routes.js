@@ -15,6 +15,7 @@ router.get('/services', isAuthenticated, function (req, res) {
       console.error('Error al obtener las opciones de la base de datos:', err)
       return;
     }
+    results.unshift({ idClients: null, nameClients: 'Seleccionar opción' });
     res.render('services', { user: USER, results })
   })
 })
