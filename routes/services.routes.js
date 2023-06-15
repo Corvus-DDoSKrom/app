@@ -10,7 +10,14 @@ const router = express.Router()
 
 router.get('/services', isAuthenticated, function (req, res) {
   USER = req.user
-  res.render('services', { user: USER })
+  connector.query('SELECT nameClients FROM clients', function(err, result) {
+    if (err) {
+      console.error('Error al obtener las opciones de la base de datos:', err);
+      return;
+    }
+    connector.end();
+  });
+  res.render('services', { user: USER, result })
 })
 
 export default router
