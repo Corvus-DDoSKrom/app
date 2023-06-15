@@ -10,7 +10,7 @@ const router = express.Router()
 
 router.get('/services', isAuthenticated, function (req, res) {
   USER = req.user
-  connector.query('SELECT nameClients FROM clients', function(err, result) {
+  connector.query('SELECT idClients, nameClients FROM clients', function(err, result) {
     if (err) {
       console.error('Error al obtener las opciones de la base de datos:', err);
       return;
