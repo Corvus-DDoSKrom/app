@@ -37,6 +37,6 @@
     "tailwindcss": "^3.3.2"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": "standard"
   }
 }
