@@ -13,9 +13,9 @@ router.get('/services', isAuthenticated, function (req, res) {
   connector.query('SELECT idClients, nameClients FROM clients', function(err, results) {
     if (err) {
       console.error('Error al obtener las opciones de la base de datos:', err)
-      return;
+      return
     }
-    results.unshift({ idClients: null, nameClients: 'Seleccionar opción' });
+    results.unshift({ idClients: null, nameClients: 'Seleccionar opción' })
     res.render('services', { user: USER, results })
   })
 })
