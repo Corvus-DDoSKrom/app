@@ -1,19 +1,3 @@
-<?php
-  session_start();
-  require 'config/connection.php';
-  require 'includes/auth_validate.php';
-/* $privilege_admin = $_SESSION['privilege'];
-if($privilege_admin !='ADMINISTRADOR'){
-    header("location:error-403");
-} */
-  $username = $_SESSION['usuario_cuenta'];
-  $db_consulting_login="SELECT*FROM usuarios";
-  $result_login=mysqli_query($conn, $db_consulting_login);
-  $view_login=mysqli_fetch_array($result_login);  
-  /*$db_consulting="SELECT*FROM customers";
-  $result=mysqli_query($conn, $db_consulting);
-  $view=mysqli_num_rows($result);*/  
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
